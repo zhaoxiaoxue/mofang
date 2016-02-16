@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .scene{
+            width: 200px;
+            height:200px;
+            padding:200px;
+            margin:0 auto;
+            perspective: 800px;
+        }
+        .box{
+            width:200px;height:200px;
+            position: relative;
+
+            transform-style:preserve-3d;
+            transform-origin: center center 100px;
+        }
+
+        .box div{
+            width:100%;height:100%;
+            position:absolute;left: 0;top:0;
+            font-size: 30px;text-align: center;line-height: 200px;
+
+        }
+        .box div:nth-child(1){
+            background: red;
+            transform: rotateX(90deg);
+            transform-origin:top;
+        }
+        .box div:nth-child(2){
+            background: blue;transform: rotateY(-90deg);
+            transform-origin:left;
+        }
+        .box div:nth-child(3){
+            background: yellow;transform: rotateY(180deg);
+        }
+        .box div:nth-child(4){
+            background: rebeccapurple;transform: rotateY(90deg);
+            transform-origin:right;
+        }
+        .box div:nth-child(5){
+            background: brown;transform: rotateX(-90deg);
+            transform-origin:bottom;
+        }
+        .box div:nth-child(6){
+            background: deeppink;transform: translateZ(200px);
+        }
+        
+
+    </style>
+    <script src="jQuery.js"></script>
+    <script src="js/touch.js"></script>
+    <script>
+//        $(function(){
+//
+//        })
+        $(function(){
+            var cx=$('.box').offset().top+$('.box').height()/2;
+            var cy=$('.box').offset().left+$('.box').width()/2;
+            $(document).mousemove(function(e){
+                var px= e.pageX-cx;
+                var py= e.pageY-cy;
+                var pz=0;
+
+                var m=Math.sqrt(px*px+py*py+pz*pz);
+
+                var mx=px/m;
+                var my=py/m;
+                var mz=pz/m;
+
+                $('.box').css({
+                    transform:'rotate3D('+mx+','+my+','+mz+','+m+'deg)'
+                })
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="scene">
+    <div class="box">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+    </div>
+</div>
+</body>
+</html>
